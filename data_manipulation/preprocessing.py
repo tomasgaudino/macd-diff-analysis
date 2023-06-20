@@ -29,8 +29,10 @@ def load_positions():
     df = pd.concat(dataframes, ignore_index=True)
     df = df[df["timestamp"] >= constants.strategy_params["start_timestamp"] / 1000]
     df["datetime"] = pd.to_datetime(df["timestamp"], unit="s")
+    df["close_datetime"] = pd.to_datetime(df["close_timestamp"], unit="s")
     df["duration"] = (df["close_timestamp"] - df["timestamp"]) / 60
     df["side_num"] = df["side"].apply(lambda x: 1 if x == "TradeType.BUY" else -1)
+    df["real_class"] = df["net_pnl_quote"].apply(lambda x: 1 if x > 0 else -1)
     # TODO: Check volume formula
     df["volume"] = df["amount"] * df["entry_price"]
     df.sort_values("datetime", inplace=True)
