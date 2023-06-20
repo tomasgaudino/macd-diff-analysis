@@ -10,7 +10,6 @@ st.set_page_config(page_title="MACD Cum Diff Performance", layout="wide")
 strategy_params = constants.strategy_params
 df = load_positions()
 candles = load_candles()
-positions = PositionsExecuted(df, candles)
 
 total_pnl = df["net_pnl_quote"].sum()
 total_pnl_pct = 100 * total_pnl / strategy_params["initial_portfolio"]
@@ -34,6 +33,7 @@ with st.sidebar:
         st.metric("Total duration (days)", f"{total_days_duration:.2f}")
     st.subheader("Params")
     st.code(get_strategy_params())
+    tp_viz_factor = st.number_input("TP Viz Factor", min_value=0.0, max_value=1.0, value=1.0, step=0.1)
 
 
 st.title('MACD Cum Diff V1 results')
@@ -54,6 +54,7 @@ with col6:
 with col7:
     st.metric("Avg Min Duration", f"{avg_duration:.1f}")
 
+positions = PositionsExecuted(df, candles, tp_viz_factor)
 st.subheader('Market activity and PnL')
 st.plotly_chart(positions.main_chart(), use_container_width=True)
 

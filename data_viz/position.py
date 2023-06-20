@@ -4,10 +4,11 @@ from plotly.subplots import make_subplots
 
 
 class PositionsExecuted:
-    def __init__(self, df, candles):
+    def __init__(self, df, candles, tp_viz_factor=1.0):
         self.df = df
         self.candles = candles
         self.df_grouped_by_close_type_and_side = df.groupby(["close_type", "side"]).size().reset_index(name="side_count")
+        self.tp_viz_factor = tp_viz_factor
 
     def main_chart(self):
         fig = make_subplots(rows=2,
