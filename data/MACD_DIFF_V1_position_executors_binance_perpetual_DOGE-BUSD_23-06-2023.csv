@@ -1,0 +1,1 @@
+timestamp,exchange,trading_pair,side,amount,trade_pnl,trade_pnl_quote,cum_fee_quote,net_pnl_quote,net_pnl,close_timestamp,executor_status,close_type,entry_price,close_price,sl,tp,tl,open_order_type,take_profit_order_type,stop_loss_order_type,time_limit_order_type,leverage
