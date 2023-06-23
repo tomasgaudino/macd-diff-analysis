@@ -2,7 +2,8 @@ import glob
 import pandas as pd
 import numpy as np
 import constants
-
+import pandas_ta as ta # noqa
+from data_manipulation.strategy import macd_cum_diff_v1
 
 def load_positions():
     # Create an empty list to store the dataframes
@@ -43,6 +44,7 @@ def load_candles():
     candles = pd.read_csv("/home/drupman/PycharmProjects/download_candles/hummingbot/data/candles_DOGE-BUSD_5m.csv")
     candles = candles[candles["timestamp"] >= constants.strategy_params["start_timestamp"]]
     candles["datetime"] = pd.to_datetime(candles["timestamp"], unit="ms")
+    candles = macd_cum_diff_v1(candles)
     candles.sort_values("datetime", inplace=True)
     return candles
 

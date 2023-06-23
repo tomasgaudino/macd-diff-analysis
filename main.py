@@ -34,6 +34,7 @@ with st.sidebar:
     st.subheader("Params")
     st.code(get_strategy_params())
     tp_viz_factor = st.number_input("TP Viz Factor", min_value=0.0, max_value=1.0, value=1.0, step=0.1)
+    show_pnl = st.checkbox("Show PnL", True)
 
 
 st.title('MACD Cum Diff V1 results')
@@ -54,9 +55,9 @@ with col6:
 with col7:
     st.metric("Avg Min Duration", f"{avg_duration:.1f}")
 
-positions = PositionsExecuted(df, candles, tp_viz_factor)
+positions = PositionsExecuted(df, candles, tp_viz_factor, show_pnl)
 st.subheader('Market activity and PnL')
-st.plotly_chart(positions.main_chart(), use_container_width=True)
+st.plotly_chart(positions.base_figure, use_container_width=True)
 
 st.subheader('Close types')
 col1, col2 = st.columns(2)
