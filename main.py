@@ -16,7 +16,9 @@ total_pnl = df["net_pnl_quote"].sum()
 total_pnl_pct = 100 * total_pnl / strategy_params["initial_portfolio"]
 total_positions = len(df)
 total_volume = df["volume"].sum()
-total_days_duration = (candles["datetime"].max() - df["datetime"].min()).total_seconds() / (24 * 60 * 60)
+total_days_duration = candles['datetime'].max() - candles['datetime'].min()
+total_seconds = total_days_duration.total_seconds()
+decimal_days = total_seconds / 86400
 profitable_pct = 100 * len(df[df["net_pnl_quote"] > 0]) / len(df)
 profits = df.loc[df["net_pnl_quote"] > 0, "net_pnl_quote"]
 loses = df.loc[df["net_pnl_quote"] <= 0, "net_pnl_quote"]
@@ -31,7 +33,7 @@ with st.sidebar:
     with col1:
         st.metric("Total profit", f"${total_pnl:.2f}", delta=f"{total_pnl_pct:.4f}%")
     with col2:
-        st.metric("Total duration (days)", f"{total_days_duration:.2f}")
+        st.metric("Total duration (days)", f"{decimal_days:.2f}")
     st.subheader("Params")
     st.code(get_strategy_params())
 

@@ -14,6 +14,7 @@ def get_strategy_params():
 # Strategy settings
 {"initial_portfolio".upper()} = {strategy_params["initial_portfolio"]}
 {"start_timestamp".upper()} = {pd.to_datetime(strategy_params["start_timestamp"], unit='ms')}
+{"end_timestamp".upper()} = {pd.to_datetime(strategy_params["end_timestamp"], unit='ms')}
 {"order_amount_usd".upper()} = {strategy_params["order_amount_usd"]}
 {"leverage".upper()} = {strategy_params["leverage"]}
 
